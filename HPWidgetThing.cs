@@ -40,6 +40,11 @@ public class HPWidgetThing : HPWidget
             int arrayNum = 0;
             foreach (SourceElement.Row row in array)
             {
+                if (row.alias == ("living") || row.alias == ("force_weapon") || row.alias == ("noDamage") || row.alias == ("onlyPet") || row.alias == ("permaCurse") || row.alias == ("absorbHP") || row.alias == ("absorbMP") || row.alias == ("absorbSP") || row.alias == ("eheluck") || row.alias == ("boostMachine") || row.alias == ("meleeDistance"))
+                {
+                    continue;
+                }
+
                 if (EClass.rnd(20) == 0)
                 {
                     arrayNum++;
@@ -65,6 +70,8 @@ public class HPWidgetThing : HPWidget
                         }
                     }
                 }
+
+
 
                 int num = 653;
                 Element element = thing.elements.GetElement(num);
