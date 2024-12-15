@@ -96,5 +96,9 @@
     <Compile Include="Mod_PandaLivingWeaponMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="package.xml" />
+    <Content Include="preview.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

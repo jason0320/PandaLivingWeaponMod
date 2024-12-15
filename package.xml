@@ -1,12 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Meta>
-	<title>Panda's Living Weapon Mod</title>
-	<id>Mod_PandaLivingWeaponMod</id>
-	<author>Now Happy Panda</author>
-	<tags>General,Cheat,Item</tags>
-	<loadPriority>100</loadPriority>
-	<description>
-		Add Living Weapon that rarely generate from random artifact melee weapons that grows from killing and gain random enchantments from leveling up! (sorry too lazy to add manual enchantment selection)
-	</description>
-	<version>0.23.48</version>
+  <title>Panda Living Weapon Mod</title>
+  <id>Mod_PandaLivingWeaponMod</id>
+  <author>Now Happy Panda</author>
+  <loadPriority>100</loadPriority>
+  <description>
+Add Living Weapon that has 1/20 chane to spawn on random artifact melee weapons
+Living Weapon grows from killing
+When the Living Weapon has enough Exp you can middle click it to select "Growth" option to open an enchant selecting window
+In the BepInEx configuration file
+(e.g., "SteamLibrary\steamapps\common\Elin\BepInEx\config\panda.livingweapon.mod.cfg")
+you can adjust:
+Spell trigger enchants spawn in selector or not
+The maximum number of enchants in selector
+The rarity of living weapon, 1 in x chance
+  </description>
+  <version>0.23.56</version>
 </Meta>
