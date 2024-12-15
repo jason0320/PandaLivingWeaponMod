@@ -26,12 +26,15 @@ class CardSpawnLootPatch
                     element.vExp = element.vExp + Rand.rnd(__instance.LV / (w.elements.GetElement("living").vBase)) + 1;
                     if (element.vExp >= element.ExpToNext)
                     {
-                        int num = element.vExp - element.ExpToNext;
-                        int vBase = element.vBase;
-                        w.elements.ModBase(ele, 1);
-                        element.vExp = Mathf.Clamp(num / 2, 0, element.ExpToNext / 2);
-                        w.AddEnchant(Rand.rnd(vBase + 10) + vBase);
-                        Msg.SayRaw(w.GetName(NameStyle.Full) + " has sucked enough blood and grows!");
+                        element.vExp = element.ExpToNext;
+                        if (Lang.isJP)
+                        {
+                            Msg.SayRaw(w.GetName(NameStyle.Full) + "は十分に血を吸い成長できる!");
+                        }
+                        else
+                        {
+                            Msg.SayRaw(w.GetName(NameStyle.Full) + " sucked enough blood and ready to grow!");
+                        }
                     }
                 }
             }

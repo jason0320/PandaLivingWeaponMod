@@ -3,9 +3,10 @@
 	<title>Panda's Living Weapon Mod</title>
 	<id>Mod_PandaLivingWeaponMod</id>
 	<author>Now Happy Panda</author>
+	<tags>General,Cheat,Item</tags>
 	<loadPriority>100</loadPriority>
 	<description>
-		Add Living Weapon that rarely generate from random artifact melee weapons that grows from killing and gain random enchantments from leveling up! (sorry too lazy to add enchantment selection)
+		Add Living Weapon that rarely generate from random artifact melee weapons that grows from killing and gain random enchantments from leveling up! (sorry too lazy to add manual enchantment selection)
 	</description>
-	<version>0.23.45</version>
+	<version>0.23.48</version>
 </Meta>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using BepInEx;
 using HarmonyLib;
 
-namespace Mod_PandaLivingWeaponMod
+namespace PandaLivingWeaponMod
 {
     [BepInPlugin("panda.livingweapon.mod", "Panda's Living Weapon Mod", "1.0.0.0")]
     public class Mod_PandaLivingWeaponMod : BaseUnityPlugin

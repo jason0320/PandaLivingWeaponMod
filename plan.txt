@@ -1,0 +1,2 @@
+1. Make weapons with "Living" enchantment gain level from "using" action with full exp <- now
+2. Make weapons with "Living" enchantment on level up pop up an UI to let player choose from a list of random enchantmets that don't have "Living"
