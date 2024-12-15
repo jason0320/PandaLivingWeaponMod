@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using HarmonyLib;
+using PandaLivingWeaponMod;
 using UnityEngine;
 
 [HarmonyPatch]
@@ -16,7 +17,12 @@ class ThingOnCreatePatch
     {
         if ((__instance.rarity == Rarity.Legendary || __instance.rarity == Rarity.Mythical) && __instance.IsMeleeWeapon)
         {
-            if (Rand.rnd(20) == 0)
+            int livingGenRarity = Mod_PandaLivingWeaponMod.livingGenRarity.Value;
+            if (livingGenRarity < 1)
+            {
+                livingGenRarity = 20;
+            }
+            if (Rand.rnd(livingGenRarity) == 0)
             {
                 List<SourceElement.Row> list = new List<SourceElement.Row>();
                 foreach (SourceElement.Row row in EClass.sources.elements.rows)
