@@ -262,7 +262,7 @@ public class HPWidgetThing : HPWidget
                             {
                                 thing.elements.ModBase(row.id, 1);
                             }
-                            thing.elements.SetBase(row.id, v);
+                            thing.elements.ModBase(row.id, v);
                             if (Lang.isJP)
                             {
                                 Msg.SayRaw(thing.GetName(NameStyle.Full) + "は嬉しげに震えた。");
