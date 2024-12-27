@@ -111,7 +111,7 @@ public class HPWidgetThing : HPWidget
                     || e.alias == ("FPV")
                     || e.alias == ("DV")
                     || e.alias == ("PV")) &&
-                    (e.category == "attribute" || e.category == "skill" || e.category == "enchant" || e.category == "resist" || (e.category == "ability" && e.group == "SPELL"))).ToArray();
+                    (e.category == "attribute" || e.category == "skill" || e.category == "enchant" || e.category == "resist" || (e.category == "ability" && (e.group == "SPELL" || e.type == "ActBreathe" )))).ToArray();
             }
             else
             {

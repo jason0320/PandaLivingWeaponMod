@@ -15,7 +15,7 @@ class ThingOnCreatePatch
     [HarmonyPatch(typeof(Thing), nameof(Thing.OnCreate))]
     internal static void Postfix(ref Thing __instance)
     {
-        if ((__instance.rarity == Rarity.Legendary || __instance.rarity == Rarity.Mythical) && (__instance.IsMeleeWeapon || __instance.IsRangedWeapon || __instance.IsThrownWeapon))
+        if ((__instance.rarity == Rarity.Legendary || __instance.rarity == Rarity.Mythical) && (__instance.IsMeleeWeapon || __instance.IsRangedWeapon))
         {
             int livingGenRarity = Mod_PandaLivingWeaponMod.livingGenRarity.Value;
             if (livingGenRarity < 1)

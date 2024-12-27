@@ -18,13 +18,15 @@ class AttackProcessPerformPatch
         Thing w = __instance.weapon;
         if (w != null)
         {
+            int ele = 653;
+            Element element = w.elements.GetElement(ele);
+
             if (__instance.TC != null)
             {
                 int targetLV = __instance.TC.LV;
                 if (!__instance.TC.IsAliveInCurrentZone)
                 {
-                    int ele = 653;
-                    Element element = w.elements.GetElement(ele);
+
                     if (w.HasElement(ele))
                     {
                         element.vExp = element.vExp + Rand.rnd(targetLV / (w.elements.GetElement("living").vBase)) + 1;
@@ -41,6 +43,7 @@ class AttackProcessPerformPatch
                             }
                         }
                     }
+
                 }
             }
         }
