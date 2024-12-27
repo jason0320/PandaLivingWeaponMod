@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttackProcessPerformPatch.cs" />
+    <Compile Include="CardSpawnLootPatch.cs" />
     <Compile Include="HPLayout.cs" />
     <Compile Include="HPWidget.cs" />
     <Compile Include="HPWidgetThing.cs" />
