@@ -20,38 +20,37 @@ public static class HPUI
     {
         categories = new string[20]
         {
-            "food", "wall", "floor", "foundation", "door", "furniture", "storage", "spot", "mount", "facility",
-            "tool", "deco", "mech", "light", "junk", "ext", "goods", "obj", "other", "area"
+        "food", "wall", "floor", "foundation", "door", "furniture", "storage", "spot", "mount", "facility",
+        "tool", "deco", "mech", "light", "junk", "ext", "goods", "obj", "other", "area"
         };
+
         UIElementsList = new Dictionary<Type, string>
-        {
+    {
+        { typeof(Layer), "Layers(Float)" },
+        { typeof(UIText), "text caption" },
+        { typeof(UIButton), "ButtonBottom Parchment" },
+        { typeof(UIScrollView), "Scrollview default" },
+        { typeof(InputField), "InputField" },
+        { typeof(ScrollRect), "Scrollview parchment with Header" }
+    };
+
+        UIObjects = UIElementsList.ToDictionary(
+            kv => kv.Key,
+            kv =>
             {
-                typeof(Layer),
-                "Layers(Float)"
-            },
-            {
-                typeof(UIText),
-                "text caption"
-            },
-            {
-                typeof(UIButton),
-                "ButtonBottom Parchment"
-            },
-            {
-                typeof(UIScrollView),
-                "Scrollview default"
-            },
-            {
-                typeof(InputField),
-                "InputField"
-            },
-            {
-                typeof(ScrollRect),
-                "Scrollview parchment with Header"
+                var objs = Resources.FindObjectsOfTypeAll(kv.Key);
+                // For ScrollRect, filter to get the one that has a child named "Header Top Parchment"
+                if (kv.Key == typeof(ScrollRect))
+                {
+                    return objs.FirstOrDefault(x => x.name == kv.Value &&
+                                                      ((ScrollRect)x).transform.Find("Header Top Parchment") != null);
+                }
+                return objs.FirstOrDefault(x => x.name == kv.Value);
             }
-        };
-        UIObjects = UIElementsList.ToDictionary((KeyValuePair<Type, string> k) => k.Key, (KeyValuePair<Type, string> v) => Resources.FindObjectsOfTypeAll(v.Key).FirstOrDefault((UnityEngine.Object x) => x.name == v.Value));
-        BaseWindow = Resources.FindObjectsOfTypeAll<Window>().FirstOrDefault((Window x) => x.name == "Window Parchment");
+        );
+
+        BaseWindow = Resources.FindObjectsOfTypeAll<Window>()
+            .FirstOrDefault(x => x.name == "Window Parchment");
     }
 
     public static string __(string ja, string en = "")
