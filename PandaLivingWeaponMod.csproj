@@ -86,16 +86,18 @@
   <ItemGroup>
     <Compile Include="AttackProcessPerformPatch.cs" />
     <Compile Include="CardSpawnLootPatch.cs" />
+    <Compile Include="Ext.cs" />
+    <Compile Include="HPHorizontal.cs" />
+    <Compile Include="HPLayer.cs" />
     <Compile Include="HPLayout.cs" />
-    <Compile Include="HPWidget.cs" />
-    <Compile Include="HPWidgetThing.cs" />
-    <Compile Include="IHPWidget.cs" />
-    <Compile Include="HPUI.cs" />
-    <Compile Include="Patcher.cs" />
-    <Compile Include="PatchContextMenu.cs" />
+    <Compile Include="HPScroll.cs" />
+    <Compile Include="LayerThingEditor.cs" />
+    <Compile Include="Patches.cs" />
+    <Compile Include="ThingEnchantTab.cs" />
     <Compile Include="ThingOnCreatePatch.cs" />
     <Compile Include="Mod_PandaLivingWeaponMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="HP.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="package.xml" />

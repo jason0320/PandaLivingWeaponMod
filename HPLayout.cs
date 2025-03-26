@@ -1,237 +1,223 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using PandaLivingWeaponMod;
+using static HotItemLayout;
 
-public class HPLayout<T>
+namespace PandaLivingWeaponMod
 {
-    public class GridLayout
+    public class HPLayout : UIContent
     {
-        public UIContent ui;
-
-        public RectTransform transform;
-
-        public GridLayoutGroup group;
-
-        public UIItemList items;
-
-        public GridLayout(Transform parent)
+        public virtual void OnLayout()
         {
-            ui = HPUI.Create<UIContent>(parent);
-            transform = ui.GetComponent<RectTransform>();
-            transform.SetAnchor(RectPosition.TopLEFT);
-            transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 0f);
-            group = ui.gameObject.AddComponent<GridLayoutGroup>();
-            group.padding = new RectOffset(0, 0, 0, 15);
-            items = ui.gameObject.AddComponent<UIItemList>();
-            items.gridLayout.cellSize = new Vector2(180f, 50f);
-            items.gridLayout.spacing = new Vector2(2f, 2f);
-            items.gridLayout.constraint = (GridLayoutGroup.Constraint)1;
-            items.gridLayout.constraintCount = 3;
+        }
+
+        public RectTransform Spacer(int height, int width = 1)
+        {
+            Transform obj = Util.Instantiate<Transform>("UI/Element/Deco/Space", layout);
+            obj.SetParent(base.transform);
+            RectTransform rectTransform = obj.Rect();
+            rectTransform.sizeDelta = new Vector2(width, height);
+            if (height != 1)
+            {
+                rectTransform.LayoutElement().preferredHeight = height;
+            }
+            if (width != 1)
+            {
+                rectTransform.LayoutElement().preferredWidth = width;
+            }
+            return rectTransform;
+        }
+
+        public UIItem Header(string text, Sprite? sprite = null)
+        {
+            UIItem uIItem = AddHeader(text, sprite);
+            uIItem.transform.SetParent(base.transform);
+            return uIItem;
+        }
+
+        public UIItem HeaderCard(string text, Sprite? sprite = null)
+        {
+            UIItem uIItem = AddHeaderCard(text, sprite);
+            uIItem.transform.SetParent(base.transform);
+            return uIItem;
+        }
+
+        public UIItem HeaderSmall(string text, Sprite? sprite = null)
+        {
+            UIItem uIItem = AddHeader("HeaderNoteSmall", text, sprite);
+            uIItem.transform.SetParent(base.transform);
+            return uIItem;
+        }
+
+        public UIText Text(string text, FontColor color = FontColor.DontChange)
+        {
+            UIItem uIItem = AddText(text, color);
+            uIItem.transform.SetParent(base.transform);
+            uIItem.text1.horizontalOverflow = HorizontalWrapMode.Wrap;
+            uIItem.GetOrCreate<LayoutElement>().minWidth = 80f;
+            return uIItem.GetComponent<UIText>();
+        }
+
+        public UIText TextLong(string text, FontColor color = FontColor.DontChange)
+        {
+            UIItem uIItem = AddText("NoteText_long", text, color);
+            uIItem.transform.SetParent(base.transform);
+            uIItem.text1.horizontalOverflow = HorizontalWrapMode.Wrap;
+            uIItem.GetOrCreate<LayoutElement>().minWidth = 80f;
+            return uIItem.GetComponent<UIText>();
+        }
+
+        public UIText TextMedium(string text, FontColor color = FontColor.DontChange)
+        {
+            UIItem uIItem = AddText("NoteText_medium", text, color);
+            uIItem.transform.SetParent(base.transform);
+            uIItem.text1.horizontalOverflow = HorizontalWrapMode.Wrap;
+            uIItem.GetOrCreate<LayoutElement>().minWidth = 80f;
+            return uIItem.GetComponent<UIText>();
+        }
+
+        public UIText TextSmall(string text, FontColor color = FontColor.DontChange)
+        {
+            UIItem uIItem = AddText("NoteText_small", text, color);
+            uIItem.transform.SetParent(base.transform);
+            uIItem.text1.horizontalOverflow = HorizontalWrapMode.Wrap;
+            uIItem.GetOrCreate<LayoutElement>().minWidth = 80f;
+            return uIItem.GetComponent<UIText>();
+        }
+
+        public UIText TextFlavor(string text, FontColor color = FontColor.DontChange)
+        {
+            UIItem uIItem = AddText("NoteText_flavor", text, color);
+            uIItem.transform.SetParent(base.transform);
+            uIItem.GetOrCreate<LayoutElement>().minWidth = 80f;
+            return uIItem.GetComponent<UIText>();
+        }
+
+        public UIItem Topic(string text, string? value = null)
+        {
+            UIItem uIItem = AddTopic("TopicDefault", text, value);
+            uIItem.transform.SetParent(base.transform);
+            return uIItem;
+        }
+
+        public UIItem TopicAttribute(string text, string? value = null)
+        {
+            UIItem uIItem = AddTopic("TopicAttribute", text, value);
+            uIItem.transform.SetParent(base.transform);
+            return uIItem;
+        }
+
+        public UIItem TopicDomain(string text, string? value = null)
+        {
+            UIItem uIItem = AddTopic("TopicDomain", text, value);
+            uIItem.transform.SetParent(base.transform);
+            return uIItem;
+        }
+
+        public UIItem TopicLeft(string text, string? value = null)
+        {
+            UIItem uIItem = AddTopic("TopicLeft", text, value);
+            uIItem.transform.SetParent(base.transform);
+            return uIItem;
+        }
+
+        public UIItem TopicPair(string text, string? value = null)
+        {
+            UIItem uIItem = AddTopic("TopicPair", text, value);
+            uIItem.transform.SetParent(base.transform);
+            return uIItem;
+        }
+
+        public UIButton Button(string text, Action action)
+        {
+            UIButton uIButton = AddButton(text, delegate
+            {
+                SE.ClickGeneral();
+                action();
+            });
+            uIButton.transform.SetParent(base.transform);
+            uIButton.GetOrCreate<LayoutElement>().minWidth = 80f;
+            return uIButton;
+        }
+
+        public UIButton Toggle(string text, bool isOn = false, Action<bool>? onClick = null)
+        {
+            UIButton uIButton = AddToggle(text, isOn, onClick);
+            uIButton.transform.SetParent(base.transform);
+            return uIButton;
+        }
+
+        public UISlider Slider<TValue>(int index, IList<TValue> list, Action<int, TValue> onChange, Func<TValue, string>? getInfo = null)
+        {
+            if (!HP.UIObjects.ContainsKey(typeof(UISlider)))
+            {
+                LayerEditPCC layerEditPCC = Layer.Create<LayerEditPCC>();
+                HP.UIObjects.Add(typeof(UISlider), UnityEngine.Object.Instantiate(layerEditPCC.sliderPortrait));
+                UnityEngine.Object.Destroy(layerEditPCC.gameObject);
+            }
+            UISlider obj = (UISlider)UnityEngine.Object.Instantiate(HP.UIObjects[typeof(UISlider)]);
+            obj.Rect().SetParent(base.transform);
+            obj.SetList(index, list, onChange, getInfo);
+            obj.textMain.text = "";
+            obj.textInfo.text = "";
+            return obj;
+        }
+
+        public Slider Slider(float value, Action<float> setvalue, float min, float max, Func<float, string>? labelfunc = null)
+        {
+            if (!HP.UIObjects.ContainsKey(typeof(Slider)))
+            {
+                LayerConfig layerConfig = Layer.Create<LayerConfig>();
+                HP.UIObjects.Add(typeof(Slider), UnityEngine.Object.Instantiate(layerConfig.sliderBGM));
+                UnityEngine.Object.Destroy(layerConfig.gameObject);
+            }
+            Slider obj = (Slider)UnityEngine.Object.Instantiate(HP.UIObjects[typeof(Slider)]);
+            obj.Rect().SetParent(base.transform);
+            Func<float, string> labelfunc2 = labelfunc;
+            obj.SetSlider(value, delegate (float v)
+            {
+                string result = ((labelfunc2 != null) ? labelfunc2(v) : null) ?? v.ToString();
+                setvalue(v);
+                return result;
+            }, (int)min, (int)max);
+            return obj;
+        }
+        public HPScroll Scroll()
+        {
+            HPScroll HPScroll = HP.Create<HPScroll>(base.transform);
+            HPScroll.OnLayout();
+            return HPScroll;
+        }
+
+        public T Create<T>() where T : HPLayout
+        {
+            T val = HP.Create<T>(base.transform);
+            val.OnLayout();
+            return val;
         }
     }
 
-    public class LayoutGroup
+    public class HPLayout<T> : HPLayout
     {
-        public UIContent ui;
+        protected HPLayer<T>? _layer;
 
-        public RectTransform transform;
-
-        public HorizontalLayoutGroup group;
-
-        public UIItemList items;
-
-        public LayoutElement element;
-
-        public LayoutGroup(Transform parent)
+        public HPLayer<T> Layer
         {
-            ui = HPUI.Create<UIContent>(parent);
-            element = ui.gameObject.AddComponent<LayoutElement>();
-            element.preferredHeight = 36f;
-            transform = ui.GetComponent<RectTransform>();
-            transform.SetAnchor(RectPosition.TopLEFT);
-            transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 0f);
-            transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 52f);
-            group = ui.gameObject.AddComponent<HorizontalLayoutGroup>();
-            ((HorizontalOrVerticalLayoutGroup)group).childControlHeight = false;
-            ((HorizontalOrVerticalLayoutGroup)group).childForceExpandHeight = false;
-            group.childAlignment = (TextAnchor)3;
-            items = ui.gameObject.AddComponent<UIItemList>();
-            items.layoutItems.padding = new RectOffset(2, 2, 2, 2);
+            get
+            {
+                return _layer;
+            }
+            set
+            {
+                _layer = value;
+            }
         }
-    }
 
-    public class InputTextField
-    {
-        public RectTransform transform;
-
-        public UIInputText input;
-
-        public RectTransform inputTransform;
-
-        public Transform placeholder;
-
-        public Text placeholderText;
-
-        public LayoutElement element;
-
-        public InputTextField(Transform parent)
+        public override void OnSwitchContent(int idTab)
         {
-            Transform transform = Util.Instantiate("UI/Element/Input/InputText", parent);
-            this.transform = transform.gameObject.GetComponent<RectTransform>();
-            element = transform.gameObject.GetComponent<LayoutElement>();
-            element.preferredWidth = 80f;
-            input = transform.Find("InputField").GetComponent<UIInputText>();
-            input.gameObject.GetComponent<CanvasRenderer>().SetColor(new Color(0.99f, 0.99f, 0.99f, 0.3f));
-            inputTransform = input.gameObject.GetComponent<RectTransform>();
-            inputTransform.anchoredPosition = new Vector2(0f, 27f);
-            inputTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 37f);
-            ((Graphic)input.Find("Text").gameObject.GetComponent<Text>()).color = new Color(0.2896f, 0.2255f, 0.1293f, 1f);
-            transform.Find("text invalid (1)").SetActive(enable: false);
-            placeholder = input.Find("Placeholder");
-            placeholderText = placeholder.GetComponent<Text>();
-            ((Graphic)placeholderText).color = new Color(0.2896f, 0.2255f, 0.1293f, 1f);
-            placeholder.gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 16f);
-            input.Find("InputField Input Caret");
-            input.Find("Image").SetActive(enable: false);
-            this.transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 55f);
+            Build();
         }
-    }
-
-    public class ScrollLayout
-    {
-        public ScrollRect scroll;
-
-        public RectTransform rect;
-
-        public RectTransform headerRect;
-
-        public UIText header;
-
-        public VerticalLayoutGroup layout;
-
-        public RectTransform root;
-
-        public LayoutElement element;
-
-        public ScrollLayout(Transform parent)
-        {
-            scroll = HPUI.GetResource<ScrollRect>();
-            rect = ((Component)(object)scroll).Rect();
-            rect.SetParent(parent);
-            element = ((Component)(object)scroll).gameObject.GetComponent<LayoutElement>();
-            element.flexibleHeight = 10f;
-            headerRect = (RectTransform)rect.Find("Header Top Parchment");
-            header = headerRect.Find("UIText").gameObject.GetComponent<UIText>();
-            RectTransform rectTransform = (RectTransform)rect.Find("Viewport");
-            rectTransform.anchoredPosition = new Vector2(0f, 0f);
-            root = (RectTransform)rectTransform.Find("Content");
-            root.DestroyChildren();
-            root.DestroyAllChildren();
-            layout = root.gameObject.GetComponent<VerticalLayoutGroup>();
-            ((HorizontalOrVerticalLayoutGroup)layout).childControlHeight = true;
-        }
-    }
-
-    public Window window;
-
-    public Transform parent;
-
-    public UIContent root;
-
-    public VerticalLayoutGroup layout;
-
-    public RectTransform rect;
-
-    public virtual void OnCreate(T data)
-    {
-    }
-
-    public UIItem AddTopic(string text, string value = "", Transform? parent = null)
-    {
-        UIItem uIItem = root.AddTopic(text, value);
-        uIItem.transform.SetParent(parent ?? ((Component)(object)layout).transform);
-        return uIItem;
-    }
-
-    public UIItem AddText(string text, Transform? parent = null)
-    {
-        UIItem uIItem = root.AddText(text);
-        uIItem.transform.SetParent(parent ?? ((Component)(object)layout).transform);
-        LayoutElement component = uIItem.gameObject.GetComponent<LayoutElement>();
-        UIText component2 = uIItem.gameObject.GetComponent<UIText>();
-        component.minWidth = ((((Text)component2).preferredWidth < 80f) ? 80f : ((Text)component2).preferredWidth);
-        uIItem.gameObject.GetComponent<ContentSizeFitter>().horizontalFit = (ContentSizeFitter.FitMode)2;
-        return uIItem;
-    }
-
-    public UIButton AddToggle(string text, bool isOn, Action<bool> action, Transform? parent = null)
-    {
-        UIButton uIButton = root.AddToggle(text, isOn, action);
-        ((Component)(object)uIButton).transform.SetParent(parent ?? ((Component)(object)layout).transform);
-        ((Component)(object)uIButton).gameObject.AddComponent<LayoutElement>();
-        return uIButton;
-    }
-
-    public UIDropdown AddDropdown(Transform? parent = null)
-    {
-        Transform transform = Util.Instantiate("UI/Element/Input/DropdownDefault", parent ?? ((Component)(object)layout).transform);
-        Text component = transform.Find("Label").GetComponent<Text>();
-        component.horizontalOverflow = (HorizontalWrapMode)0;
-        component.verticalOverflow = (VerticalWrapMode)0;
-        return transform.GetComponent<UIDropdown>();
-    }
-
-    public UIButton AddButton(string text, Action action, Transform? parent = null)
-    {
-        UIButton uIButton = root.AddButton(text, action);
-        ((Component)(object)uIButton).transform.SetParent(parent ?? ((Component)(object)layout).transform);
-        ((Component)(object)uIButton).gameObject.AddComponent<LayoutElement>();
-        return uIButton;
-    }
-
-    public InputTextField AddInputText(Transform? parent = null)
-    {
-        return new InputTextField(parent ?? ((Component)(object)layout).transform);
-    }
-
-    public TLayout AddItem<TLayout>(Transform? parent = null) where TLayout : MonoBehaviour
-    {
-        GameObject gameObject = new GameObject(typeof(TLayout).Name, typeof(RectTransform));
-        gameObject.transform.SetParent(root.gameObject.transform);
-        TLayout val = gameObject.AddComponent<TLayout>();
-        val.transform.SetParent(parent ?? ((Component)(object)layout).transform);
-        return val;
-    }
-
-    public RectTransform AddSpace(int sizeY = 0, int sizeX = 1, Transform? parent = null)
-    {
-        RectTransform rectTransform = Util.Instantiate<Transform>("UI/Element/Deco/Space", parent ?? ((Component)(object)layout).transform).Rect();
-        rectTransform.sizeDelta = new Vector2(sizeX, sizeY);
-        if (sizeY != 1)
-        {
-            rectTransform.GetComponent<LayoutElement>().preferredHeight = sizeY;
-        }
-        if (sizeX != 1)
-        {
-            rectTransform.GetComponent<LayoutElement>().preferredWidth = sizeX;
-        }
-        return rectTransform;
-    }
-
-    public GridLayout AddGridLaout(Transform? parent)
-    {
-        return new GridLayout(parent ?? ((Component)(object)layout).transform);
-    }
-
-    public LayoutGroup AddLaoutGroup(Transform? parent)
-    {
-        return new LayoutGroup(parent ?? ((Component)(object)layout).transform);
-    }
-
-    public ScrollLayout AddScrollLayout(Transform parent)
-    {
-        return new ScrollLayout(parent);
     }
 
 }
