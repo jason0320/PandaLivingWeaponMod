@@ -14,7 +14,7 @@ namespace PandaLivingWeaponMod
             Thing thing = base.Layer.Data;
             Header(thing.GetName(NameStyle.Full));
             enchantList = EClass.sources.elements.rows.Where((SourceElement.Row e) => (e.category == "attribute" || e.category == "skill" || e.category == "enchant" || e.category == "resist" || (e.category == "ability" && (e.group == "SPELL" || e.type == "ActBreathe")))).ToArray();
-            enchantList = enchantList.Where(e => !(e.category == "ability" && (e.group == "SPELL" || e.type == "ActBreathe"))).ToArray();
+            enchantList = enchantList.Where(e => !(e.aliasRef.Contains("mold"))).ToArray();
 
             string[] blacklist = { "_Void", "living", "r_life", "r_mana", "r_DV", "r_PV", "searchRange", "expMod", "weightMod", "slowDecay", "corruption", "resDecay", "resDamage", "resCurse", "piety", "critical", "vopal", "penetration", "force_weapon", "SpTeleport", "SpTeleportShort", "SpReturn", "SpEvac", "SpIdentify", "SpIdentifyG", "SpUncurse", "SpUncurseG", "SpEnchantWeapon", "SpEnchantWeaponGreat", "SpEnchantArmor", "SpEnchantArmorGreat", "SpMagicMap", "SpLighten", "SpFaith", "SpChangeMaterialLesser", "SpChangeMaterial", "SpChangeMaterialG", "SpReconstruction", "SpLevitate", "SpMutation", "SpWish", "SpRevive", "SpRestoreBody", "SpRestoreMind", "SpRemoveHex", "SpVanishHex", "SpTransmuteBroom", "SpTransmutePutit", "SpExterminate", "SpShutterHex", "SpWardMonster", "SpDrawMonster", "SpDrawMetal", "SpDrawBacker", "noDamage", "onlyPet", "permaCurse", "eheluck", "boostMachine", "meleeDistance", "throwReturn", "PDR", "EDR", "evasionPerfect", "life", "mana", "vigor", "FPV", "DV", "PV" };
 
@@ -23,7 +23,7 @@ namespace PandaLivingWeaponMod
 
             if (!allowInvokes)
             {
-                enchantList = enchantList.Where(e => !(e.aliasRef.Contains("mold"))).ToArray();
+                enchantList = enchantList.Where(e => !(e.category == "ability" && (e.group == "SPELL" || e.type == "ActBreathe"))).ToArray();
             }
             if (!allowAbsorbs) {
                 blacklist.Append("absorbHP");
