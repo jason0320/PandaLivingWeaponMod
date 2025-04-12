@@ -1,12 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
+using System.Reflection.Emit;
 using HarmonyLib;
 using UnityEngine;
+using PandaLivingWeaponMod;
+using System.Linq;
+using System.IO;
+using System.Text;
 
 [HarmonyPatch]
 class ProcAbsorbPatch
 {
-    static MethodBase TargetMethod()
+    internal static MethodBase TargetMethod()
     {
         var outerType = typeof(Card);
         var nestedTypes = outerType.GetNestedTypes(BindingFlags.NonPublic);
@@ -26,7 +32,7 @@ class ProcAbsorbPatch
         return null;
     }
     [HarmonyPostfix]
-    public static void Postfix(object __instance)
+    internal static void Postfix(object __instance)
     {
         var traverse = Traverse.Create(__instance);
 
@@ -58,5 +64,32 @@ class ProcAbsorbPatch
             }
         }
     }
+    [HarmonyTranspiler]
+    internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+    {
+        var codes = new List<CodeInstruction>(instructions);
 
+        // Target sequence from your IL dump:
+        // IL_0116: callvirt  instance class Chara Card::get_Chara()
+        // IL_011B: ldfld     bool Chara::ignoreSPAbsorb
+        // IL_0120: brtrue.s  IL_0197
+        for (int i = 0; i < codes.Count - 2; i++)
+        {
+            if (codes[i].opcode == OpCodes.Callvirt &&
+                codes[i].operand.ToString().Contains("get_Chara()") &&
+                codes[i + 1].opcode == OpCodes.Ldfld &&
+                codes[i + 1].operand.ToString().Contains("ignoreSPAbsorb") &&
+                codes[i + 2].opcode == OpCodes.Brtrue)
+            {
+                // 1. Remove Card instance from stack (originally consumed by get_Chara)
+                codes[i] = new CodeInstruction(OpCodes.Pop);
+
+                // 2. Load false instead of checking the field
+                codes[i + 1] = new CodeInstruction(OpCodes.Ldc_I4_0);
+
+                return codes;
+            }
+        }
+        return codes;
+    }
 }
