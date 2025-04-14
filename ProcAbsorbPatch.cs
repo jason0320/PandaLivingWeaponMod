@@ -41,9 +41,9 @@ class ProcAbsorbPatch
         AttackSource attackSource = traverse.Field("attackSource").GetValue<AttackSource>();
         int dmg = traverse.Field("dmg").GetValue<int>();
         Thing weapon = traverse.Field("weapon").GetValue<Thing>(); // Field is actually a Thing
-        Card defender = traverse.Field("<>4__this").GetValue<Card>(); // Critical fix: Use compiler-generated name
+        Card target = traverse.Field("<>4__this").GetValue<Card>(); // Critical fix: Use compiler-generated name
 
-        if (origin != null && defender != null && origin.isChara && defender.isChara)
+        if (origin != null && target != null && origin.isChara && target.isChara)
         {
 
             int valueOrDefault3 = origin.Evalue(660) + (weapon?.Evalue(660, ignoreGlobalElement: true) ?? 0);
@@ -53,12 +53,12 @@ class ProcAbsorbPatch
                 int num16 = EClass.rnd(2 + Mathf.Clamp(dmg / 10, 0, valueOrDefault3 + 10));
 
                 // Heal attacker
-                origin.Chara.hp += num16;
+                origin.Chara.HealHP(num16);
 
-                // Damage defender
-                if (defender.IsAliveInCurrentZone) // Use defender's property
+                // Damage target
+                if (target.IsAliveInCurrentZone) // Use target's property
                 {
-                    defender.Chara.hp -= num16;
+                    target.Chara.DamageHP(num16);
                 }
 
             }

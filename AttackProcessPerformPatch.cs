@@ -43,7 +43,39 @@ class AttackProcessPerformPatch
                             }
                         }
                     }
-
+                    Card tc = __instance.TC;
+                    bool globalExp = Mod_PandaLivingWeaponMod.globalExp.Value;
+                    if (globalExp)
+                    {
+                        if (!tc.IsPC)
+                        {
+                            foreach (BodySlot slot in Act.CC.body.slots)
+                            {
+                                Thing w1 = slot.thing;
+                                if (w1 != null)
+                                {
+                                    int ele1 = 653;
+                                    Element element1 = w1.elements.GetElement(ele1);
+                                    if (w1.HasElement(ele1))
+                                    {
+                                        element1.vExp = element1.vExp + Rand.rnd(tc.LV / (w1.elements.GetElement("living").vBase)) + 1;
+                                        if (element1.vExp >= element1.ExpToNext)
+                                        {
+                                            element1.vExp = element1.ExpToNext;
+                                            if (Lang.isJP)
+                                            {
+                                                Msg.SayRaw(w1.GetName(NameStyle.Full) + "は十分に血を吸い成長できる!");
+                                            }
+                                            else
+                                            {
+                                                Msg.SayRaw(w1.GetName(NameStyle.Full) + " sucked enough blood and ready to grow!");
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

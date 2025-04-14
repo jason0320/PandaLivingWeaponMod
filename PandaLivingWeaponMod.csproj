@@ -86,7 +86,6 @@
   <ItemGroup>
     <Compile Include="AttackProcessPerformPatch.cs" />
     <Compile Include="ProcAbsorbPatch.cs" />
-    <Compile Include="CardSpawnLootPatch.cs" />
     <Compile Include="Ext.cs" />
     <Compile Include="HPHorizontal.cs" />
     <Compile Include="HPLayer.cs" />
