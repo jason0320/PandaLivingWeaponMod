@@ -16,12 +16,14 @@ namespace PandaLivingWeaponMod
             enchantList = EClass.sources.elements.rows.Where((SourceElement.Row e) => (e.category == "attribute" || e.category == "skill" || e.category == "enchant" || e.category == "resist" || (e.category == "ability" && (e.group == "SPELL" || e.type == "ActBreathe")))).ToArray();
             enchantList = enchantList.Where(e => !(e.aliasRef.Contains("mold"))).ToArray();
 
-            string[] blacklist = { "_Void", "living", "r_life", "r_mana", "r_DV", "r_PV", "searchRange", "expMod", "weightMod", "slowDecay", "corruption", "resDecay", "resDamage", "resCurse", "piety", "critical", "vopal", "penetration", "force_weapon", "SpTeleport", "SpTeleportShort", "SpReturn", "SpEvac", "SpIdentify", "SpIdentifyG", "SpUncurse", "SpUncurseG", "SpEnchantWeapon", "SpEnchantWeaponGreat", "SpEnchantArmor", "SpEnchantArmorGreat", "SpMagicMap", "SpLighten", "SpFaith", "SpChangeMaterialLesser", "SpChangeMaterial", "SpChangeMaterialG", "SpReconstruction", "SpLevitate", "SpMutation", "SpWish", "SpRevive", "SpRestoreBody", "SpRestoreMind", "SpRemoveHex", "SpVanishHex", "SpTransmuteBroom", "SpTransmutePutit", "SpExterminate", "SpShutterHex", "SpWardMonster", "SpDrawMonster", "SpDrawMetal", "SpDrawBacker", "noDamage", "onlyPet", "permaCurse", "eheluck", "boostMachine", "meleeDistance", "throwReturn", "PDR", "EDR", "evasionPerfect", "life", "mana", "vigor", "FPV", "DV", "PV" };
+            string[] blacklist = { "ball_Void", "breathe_Void", "bolt_Void", "hand_Void", "arrow_Void", "funnel_Void", "miasma_Void", "weapon_Void", "puddle_Void", "sword_Void", "eleVoid", "living", "r_life", "r_mana", "r_DV", "r_PV", "searchRange", "expMod", "weightMod", "slowDecay", "corruption", "resDecay", "resDamage", "resCurse", "piety", "critical", "SpTeleportShort", "SpReturn", "SpEvac", "SpIdentify", "SpIdentifyG", "SpUncurse", "SpUncurseG", "SpEnchantWeapon", "SpEnchantWeaponGreat", "SpEnchantArmor", "SpEnchantArmorGreat", "SpMagicMap", "SpLighten", "SpFaith", "SpChangeMaterialLesser", "SpChangeMaterial", "SpChangeMaterialG", "SpReconstruction", "SpLevitate", "SpMutation", "SpWish", "SpRevive", "SpRestoreBody", "SpRestoreMind", "SpRemoveHex", "SpVanishHex", "SpTransmuteBroom", "SpTransmutePutit", "SpExterminate", "SpShutterHex", "SpWardMonster", "SpDrawMonster", "SpDrawMetal", "SpDrawBacker", "noDamage", "onlyPet", "permaCurse", "meleeDistance", "throwReturn" };
 
             bool allowInvokes = Mod_PandaLivingWeaponMod.allowInvokes.Value;
             bool allowAbsorbs = Mod_PandaLivingWeaponMod.allowAbsorbs.Value;
             bool allowVital = Mod_PandaLivingWeaponMod.allowVital.Value;
             bool allowDefence = Mod_PandaLivingWeaponMod.allowDefence.Value;
+            bool allowOffence = Mod_PandaLivingWeaponMod.allowOffence.Value;
+            bool allowProtection = Mod_PandaLivingWeaponMod.allowProtection.Value;
 
             if (!allowInvokes)
             {
@@ -43,6 +45,18 @@ namespace PandaLivingWeaponMod
                 blacklist.Append("DV");
                 blacklist.Append("PV");
                 blacklist.Append("FPV");
+            }
+            if (!allowOffence)
+            {
+                blacklist.Append("critical");
+                blacklist.Append("vopal");
+                blacklist.Append("penetration");
+            }
+            if (!allowProtection)
+            {
+                blacklist.Append("PDR");
+                blacklist.Append("EDR");
+                blacklist.Append("evasionPerfect");
             }
 
             enchantList = enchantList.Where(e => !blacklist.Contains(e.alias)).ToArray();
