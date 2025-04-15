@@ -20,6 +20,8 @@ namespace PandaLivingWeaponMod
 
             bool allowInvokes = Mod_PandaLivingWeaponMod.allowInvokes.Value;
             bool allowAbsorbs = Mod_PandaLivingWeaponMod.allowAbsorbs.Value;
+            bool allowVital = Mod_PandaLivingWeaponMod.allowVital.Value;
+            bool allowDefence = Mod_PandaLivingWeaponMod.allowDefence.Value;
 
             if (!allowInvokes)
             {
@@ -29,6 +31,18 @@ namespace PandaLivingWeaponMod
                 blacklist.Append("absorbHP");
                 blacklist.Append("absorbMP");
                 blacklist.Append("absorbSP");
+            }
+            if (!allowVital)
+            {
+                blacklist.Append("life");
+                blacklist.Append("mana");
+                blacklist.Append("vigor");
+            }
+            if (!allowDefence)
+            {
+                blacklist.Append("DV");
+                blacklist.Append("PV");
+                blacklist.Append("FPV");
             }
 
             enchantList = enchantList.Where(e => !blacklist.Contains(e.alias)).ToArray();
