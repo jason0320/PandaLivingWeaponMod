@@ -12,9 +12,12 @@
 	  (e.g., "SteamLibrary\steamapps\common\Elin\BepInEx\config\panda.livingweapon.mod.cfg")
 	  you can adjust:
 	  Spell trigger enchants spawn in selector or not
+	  Abosrb life/mana/stamina enchants spawn in selector or not
+	  Life/mana/stamina score enchants spawn in selector or not
+	  DV/PV/FPV enchants spawn in selector or not
 	  All equiped living items gain exp from enemy death or not
 	  The maximum number of enchants in selector
 	  The rarity of living weapon, 1 in x chance
   </description>
-  <version>0.23.125</version>
+  <version>0.23.126</version>
 </Meta>
