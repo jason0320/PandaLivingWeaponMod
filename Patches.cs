@@ -41,6 +41,16 @@ namespace PandaLivingWeaponMod
                                 obj.Hide();
                             }
                         }, true);
+                        if (Lang.isJP)
+                        {
+                            Msg.SayRaw(thing.GetName(NameStyle.Full) + "は十分に血を吸い成長できる！");
+                            Msg.SayRaw("それは…");
+                        }
+                        else
+                        {
+                            Msg.SayRaw(thing.GetName(NameStyle.Full) + " sucked enough blood and ready to grow!");
+                            Msg.SayRaw("It...");
+                        }
                         menu.Show();
                     }
                 }

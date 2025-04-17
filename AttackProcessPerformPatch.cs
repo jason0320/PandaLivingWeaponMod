@@ -35,11 +35,11 @@ class AttackProcessPerformPatch
                             element.vExp = element.ExpToNext;
                             if (Lang.isJP)
                             {
-                                Msg.SayRaw(w.GetName(NameStyle.Full) + "は十分に血を吸い成長できる!");
+                                Msg.SayRaw(w.GetName(NameStyle.Full) + "は十分に血を味わった！");
                             }
                             else
                             {
-                                Msg.SayRaw(w.GetName(NameStyle.Full) + " sucked enough blood and ready to grow!");
+                                Msg.SayRaw(w.GetName(NameStyle.Full) + " has tasted enough blood!");
                             }
                         }
                     }
@@ -64,11 +64,11 @@ class AttackProcessPerformPatch
                                             element1.vExp = element1.ExpToNext;
                                             if (Lang.isJP)
                                             {
-                                                Msg.SayRaw(w1.GetName(NameStyle.Full) + "は十分に血を吸い成長できる!");
+                                                Msg.SayRaw(w1.GetName(NameStyle.Full) + "は十分に血を味わった！");
                                             }
                                             else
                                             {
-                                                Msg.SayRaw(w1.GetName(NameStyle.Full) + " sucked enough blood and ready to grow!");
+                                                Msg.SayRaw(w1.GetName(NameStyle.Full) + " has tasted enough blood!");
                                             }
                                         }
                                     }
