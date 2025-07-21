@@ -86,41 +86,46 @@ namespace PandaLivingWeaponMod
                 float num5 = (float)(3 + Mathf.Min(lv / 10, 15)) + Mathf.Sqrt(lv * thing.encLV / 100);
                 int v = EClass.rnd((int)num5) + 1;
 
-                if (row.type.Contains("Resistance") && row.group.Contains("SKILL") && row.category.Contains("resist"))
-                {
-                    nameJP = nameJP + v + "獲得する";
-                    nameEN = "Add " + nameEN + " by " + v;
-                }
-                if (row.type.Contains("Skill") && row.group.Contains("SKILL") && row.category.Contains("enchant") && row.categorySub.Contains("eleAttack"))
-                {
-                    nameJP = nameJP + "属性追加ダメージ" + v + "を獲得する";
-                    nameEN = "Add " + nameEN + " Damage by " + v;
-                }
-                if (row.type.Contains("AttbMain") && row.group.Contains("SKILL") && row.category.Contains("attribute"))
-                {
-                    nameJP = nameJP + v + "上昇を獲得する";
-                    nameEN = "Increase " + nameEN + " by " + v;
-                }
-                if (row.type.Contains("Skill") && row.group.Contains("SKILL") && row.category.Contains("skill"))
-                {
-                    nameJP = nameJP + "スキル上昇" + v + "を獲得する";
-                    nameEN = "Add " + nameEN + " Skill Bonus by " + v;
-                }
-                if (row.type.Contains("Skill") && row.group.Contains("ENC") && row.category.Contains("enchant"))
-                {
-                    nameJP = nameJP + v + "を獲得する";
-                    nameEN = "Add " + nameEN + " by " + v;
-                }
-                if (row.alias.Contains("_") && !row.aliasRef.Contains("mold"))
+                if (row.alias.Contains("_") && !row.aliasRef.Contains("mold") && row.category.Contains("ability"))
                 {
                     foreach (SourceElement.Row row2 in enchantList)
                     {
                         if (row.aliasRef.Trim() == row2.alias.Trim())
                         {
-                            nameJP = row2.name_JP.Trim() + "の" + nameJP + " 能力発動"+ v +"を獲得する";
+                            nameJP = row2.name_JP.Trim() + "の" + nameJP + " 能力発動" + v + "を獲得する";
                             nameEN = "Add " + row2.name.Trim() + " " + nameEN + " Spell Trigger by " + v;
                         }
                     }
+                }
+                else if (row.type.Contains("Resistance") && row.group.Contains("SKILL") && row.category.Contains("resist"))
+                {
+                    nameJP = nameJP + v + "獲得する";
+                    nameEN = "Add " + nameEN + " by " + v;
+                }
+                else if (row.type.Contains("Skill") && row.group.Contains("SKILL") && row.category.Contains("enchant") && row.categorySub.Contains("eleAttack"))
+                {
+                    nameJP = nameJP + "属性追加ダメージ" + v + "を獲得する";
+                    nameEN = "Add " + nameEN + " Damage by " + v;
+                }
+                else if (row.type.Contains("AttbMain") && row.group.Contains("SKILL") && row.category.Contains("attribute"))
+                {
+                    nameJP = nameJP + v + "上昇を獲得する";
+                    nameEN = "Increase " + nameEN + " by " + v;
+                }
+                else if (row.type.Contains("Skill") && row.group.Contains("SKILL") && row.category.Contains("skill"))
+                {
+                    nameJP = nameJP + "スキル上昇" + v + "を獲得する";
+                    nameEN = "Add " + nameEN + " Skill Bonus by " + v;
+                }
+                else if (row.type.Contains("Skill") && row.group.Contains("ENC") && row.category.Contains("enchant"))
+                {
+                    nameJP = nameJP + v + "を獲得する";
+                    nameEN = "Add " + nameEN + " by " + v;
+                }
+                else
+                {
+                    nameJP = nameJP + v + "を獲得する";
+                    nameEN = "Add " + nameEN + " by " + v;
                 }
 
                 Button(nameJP._(nameEN), delegate
