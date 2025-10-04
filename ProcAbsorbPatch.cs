@@ -39,7 +39,7 @@ class ProcAbsorbPatch
         // Get fields using ACTUAL names from debug log
         Card origin = traverse.Field("origin").GetValue<Card>();
         AttackSource attackSource = traverse.Field("attackSource").GetValue<AttackSource>();
-        int dmg = traverse.Field("dmg").GetValue<int>();
+        long dmg = traverse.Field("dmg").GetValue<long>();
         Thing weapon = traverse.Field("weapon").GetValue<Thing>(); // Field is actually a Thing
         Card target = traverse.Field("<>4__this").GetValue<Card>(); // Critical fix: Use compiler-generated name
 
@@ -50,10 +50,10 @@ class ProcAbsorbPatch
 
             if (valueOrDefault3 > 0 && attackSource == AttackSource.Melee)
             {
-                int num16 = EClass.rnd(2 + Mathf.Clamp(dmg / 10, 0, valueOrDefault3 + 10));
+                long num16 = EClass.rnd((long)(2 + Mathf.Clamp(dmg / 10, 0, valueOrDefault3 + 10)));
 
                 // Heal attacker
-                origin.Chara.HealHP(num16);
+                origin.Chara.HealHP((int)num16);
 
                 // Damage target
                 if (target.IsAliveInCurrentZone) // Use target's property
