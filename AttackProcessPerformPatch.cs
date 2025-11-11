@@ -23,6 +23,7 @@ class AttackProcessPerformPatch
             if (__instance.TC != null)
             {
                 int targetLV = __instance.TC.LV;
+
                 if (!__instance.TC.IsAliveInCurrentZone)
                 {
 
