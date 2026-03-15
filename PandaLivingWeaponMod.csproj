@@ -42,6 +42,7 @@
     <Compile Include="LayerThingEditor.cs" />
     <Compile Include="Patches.cs" />
     <Compile Include="ThingEnchantTab.cs" />
+    <Compile Include="CardChangeRarityPatch.cs" />
     <Compile Include="ThingOnCreatePatch.cs" />
     <Compile Include="Mod_PandaLivingWeaponMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
