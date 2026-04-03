@@ -37,6 +37,10 @@ class AttackProcessPerformPatch
                             {
                                 Msg.SayRaw(w.GetName(NameStyle.Full) + "は十分に血を味わった！");
                             }
+                            else if (Lang.langCode == "CN")
+                            {
+                                Msg.SayRaw(w.GetName(NameStyle.Full) + "吸取足够的鲜血了！");
+                            }
                             else
                             {
                                 Msg.SayRaw(w.GetName(NameStyle.Full) + " has tasted enough blood!");
@@ -65,6 +69,10 @@ class AttackProcessPerformPatch
                                             if (Lang.isJP)
                                             {
                                                 Msg.SayRaw(w1.GetName(NameStyle.Full) + "は十分に血を味わった！");
+                                            }
+                                            else if (Lang.langCode == "CN")
+                                            {
+                                                Msg.SayRaw(w1.GetName(NameStyle.Full) + "吸取足够的鲜血了！");
                                             }
                                             else
                                             {

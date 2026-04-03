@@ -78,8 +78,20 @@ namespace PandaLivingWeaponMod
 
             foreach (SourceElement.Row row in array)
             {
+                string nameCN = "";
                 string nameJP = row.name_JP;
                 string nameEN = row.name;
+                if (Lang.langCode == "CN")
+                {
+                    if (row.name_L == "" || row.name_L == null)
+                    {
+                        nameCN = row.name;
+                    }
+                    else
+                    {
+                        nameCN = row.name_L;
+                    }
+                }
                 int num = 653;
                 Element element = thing.elements.GetElement(num);
                 int lv = thing.elements.GetElement("living").vBase;
@@ -93,6 +105,17 @@ namespace PandaLivingWeaponMod
                         if (row.aliasRef.Trim() == row2.alias.Trim())
                         {
                             nameJP = row2.name_JP.Trim() + "の" + nameJP + " 能力発動" + v + "を獲得する";
+                            if (Lang.langCode == "CN")
+                            {
+                                if (row.name_L == "" || row.name_L == null)
+                                {
+                                    nameCN = "获得" + row2.name.Trim() + nameCN + "能力发动" + v;
+                                }
+                                else
+                                {
+                                    nameCN = "获得" + row2.name_L.Trim() + nameCN + "能力发动" + v;
+                                }
+                            }
                             nameEN = "Add " + row2.name.Trim() + " " + nameEN + " Spell Trigger by " + v;
                         }
                     }
@@ -100,35 +123,54 @@ namespace PandaLivingWeaponMod
                 else if (row.type.Contains("Resistance") && row.group.Contains("SKILL") && row.category.Contains("resist"))
                 {
                     nameJP = nameJP + v + "獲得する";
+                    nameCN = "获得" + nameCN + v;
                     nameEN = "Add " + nameEN + " by " + v;
                 }
                 else if (row.type.Contains("Skill") && row.group.Contains("SKILL") && row.category.Contains("enchant") && row.categorySub.Contains("eleAttack"))
                 {
                     nameJP = nameJP + "属性追加ダメージ" + v + "を獲得する";
+                    nameCN = "获得" + nameCN + "属性追加伤害" + v;
                     nameEN = "Add " + nameEN + " Damage by " + v;
                 }
                 else if (row.type.Contains("AttbMain") && row.group.Contains("SKILL") && row.category.Contains("attribute"))
                 {
                     nameJP = nameJP + v + "上昇を獲得する";
+                    nameCN = "获得" + nameCN + "上升" + v;
                     nameEN = "Increase " + nameEN + " by " + v;
                 }
                 else if (row.type.Contains("Skill") && row.group.Contains("SKILL") && row.category.Contains("skill"))
                 {
                     nameJP = nameJP + "スキル上昇" + v + "を獲得する";
+                    nameCN = "获得" + nameCN + "技能上升" + v;
                     nameEN = "Add " + nameEN + " Skill Bonus by " + v;
                 }
                 else if (row.type.Contains("Skill") && row.group.Contains("ENC") && row.category.Contains("enchant"))
                 {
                     nameJP = nameJP + v + "を獲得する";
+                    nameCN = "获得" + nameCN + v;
                     nameEN = "Add " + nameEN + " by " + v;
                 }
                 else
                 {
                     nameJP = nameJP + v + "を獲得する";
+                    nameCN = "获得" + nameCN + v;
                     nameEN = "Add " + nameEN + " by " + v;
                 }
 
-                Button(nameJP._(nameEN), delegate
+                String buttontext = nameEN;
+                if (Lang.isJP)
+                {
+                    buttontext = nameJP;
+                }
+                else if (Lang.langCode == "CN")
+                {
+                    buttontext = nameCN;
+                }
+                else
+                {
+                    buttontext = nameEN;
+                }
+                Button(buttontext._(buttontext), delegate
                 {
                     if (element.vExp >= element.ExpToNext)
                     {
@@ -145,6 +187,10 @@ namespace PandaLivingWeaponMod
                         {
                             Msg.SayRaw(nameJP);
                         }
+                        else if (Lang.langCode == "CN")
+                        {
+                            Msg.SayRaw(nameCN);
+                        }
                         else
                         {
                             Msg.SayRaw(nameEN);
@@ -153,6 +199,10 @@ namespace PandaLivingWeaponMod
                     if (Lang.isJP)
                     {
                         Msg.SayRaw(thing.GetName(NameStyle.Full) + "は嬉しげに震えた。");
+                    }
+                    else if (Lang.langCode == "CN")
+                    {
+                        Msg.SayRaw(thing.GetName(NameStyle.Full) + "高兴的颤动着。");
                     }
                     else
                     {
@@ -171,6 +221,10 @@ namespace PandaLivingWeaponMod
                 {
                     Msg.SayRaw(thing.GetName(NameStyle.Full) + "は不満そうに震えた。");
                 }
+                else if (Lang.langCode == "CN")
+                {
+                    Msg.SayRaw(thing.GetName(NameStyle.Full) + "不满的颤动着。");
+                }
                 else
                 {
                     Msg.SayRaw(thing.GetName(NameStyle.Full) + " vibrates as if it is displeased.");
@@ -185,6 +239,10 @@ namespace PandaLivingWeaponMod
                 if (Lang.isJP)
                 {
                     Msg.SayRaw(thing.GetName(NameStyle.Full) + "は不満そうに震えた。");
+                }
+                lse if (Lang.langCode == "CN")
+                {
+                    Msg.SayRaw(thing.GetName(NameStyle.Full) + "不满的颤动着。");
                 }
                 else
                 {

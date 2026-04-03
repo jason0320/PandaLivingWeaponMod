@@ -32,7 +32,22 @@ namespace PandaLivingWeaponMod
                         {
                             return;
                         }
-                        menu.AddButton("成長"._("Growth"), (Action)delegate
+
+                        String buttontext = "Growth";
+                        if (Lang.isJP)
+                        {
+                            buttontext = "成長";
+                        }
+                        else if (Lang.langCode == "CN")
+                        {
+                            buttontext = "成长";
+                        }
+                        else
+                        {
+                            buttontext = "Growth";
+                        }
+
+                        menu.AddButton(buttontext._(buttontext), (Action)delegate
                         {
                             HP.CreateLayer<LayerThingEditor, Thing>(thing);
                             UIContextMenu obj = menu;
@@ -45,6 +60,11 @@ namespace PandaLivingWeaponMod
                         {
                             Msg.SayRaw(thing.GetName(NameStyle.Full) + "は十分に血を吸い成長できる！");
                             Msg.SayRaw("それは…");
+                        }
+                        else if (Lang.langCode == "CN")
+                        {
+                            Msg.SayRaw(thing.GetName(NameStyle.Full) + "已经吸取足够的血液，可以成长了！");
+                            Msg.SayRaw("那是…");
                         }
                         else
                         {
